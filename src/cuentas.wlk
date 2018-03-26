@@ -5,7 +5,14 @@ object cuentaDePepe {
 	
 	method depositar(monto) { saldo += monto } 
 
-	method extraer(monto) { saldo -= monto }
+	method extraer(monto) { 
+		if	(saldo < monto){
+			self.error('No hay suficiente dinero')
+		}else{
+			saldo -= monto	
+		}
+		
+	}
 }
 
 object cuentaDeJulian {
@@ -75,9 +82,23 @@ object paqueteDeFideos{
 }
 
 
+object transferencia{
+	var desde = cuentaDeJulian
+	var hasta = cuentaDePepe
+	var monto = 10
+	method ejecutar(){
+		
+		hasta.depositar(monto)
+		try{
+			desde.extraer(monto)
+		}catch error{
+			hasta.extraer(monto)
+			throw error
+		}
+	}
+}
 
-
-
+// cuentas.foreach({cuentas => c})
 
 
 

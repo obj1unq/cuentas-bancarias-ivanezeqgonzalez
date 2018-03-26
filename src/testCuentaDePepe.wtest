@@ -15,4 +15,9 @@ describe "cuenta de pepe" {
 		cuentaDePepe.extraer(20)
 		assert.equals(80, cuentaDePepe.saldo())
 	}
+	test "no me deja extraer mas de la plata que tengo"{
+		
+		assert.throwsException({cuentaDePepe.extraer(10)})
+	}
 }
+

@@ -30,29 +30,27 @@ object cuentaDeJulian {
 	}
 }
 object casa{
-	var saldo = cuentaDePepe.saldo() + cuentaDeJulian.saldo()
-	var tieneComida = false
-	var ultimaCosa
+	var gastos = {compras.sum({e => e.costo()})}
+	//var tieneComida = false
+	var property compras = []
 	
+	//method saldo() = saldo.apply()
 	
-	method saldo() = saldo
-		
+	method gastos() = gastos.apply()
+	
+	method ultimaCosa() = compras.last()
+			
 	method comprar(cosa){
-		self.gastar(cosa)
-		self.registrar(cosa)
+		compras.add(cosa)
 	}
-	method registrar(cosa){
-		ultimaCosa = cosa
-		if (cosa.esComida()) tieneComida = true
-	}
-	method gastar(importe){
-		saldo -= importe
-	}
-	method tieneComida() = tieneComida
+	//method gastar(importe){		saldo -= importe	}
+	
+	method tieneComida() = compras.any({e => e.esComida()})
+	
 	method vieneDeEquiparse(){
-		return ultimaCosa.esElectrodomestico() && ultimaCosa.costo() > 5000
+		return if (compras == []) self.ultimaCosa().esElectrodomestico() && self.ultimaCosa().costo() > 5000 else false
 	}
-	method puedeComprar(cosa) = saldo 
+	//method puedeComprar(cosa) = saldo 
 }
 
 object plancha{

@@ -1,0 +1,15 @@
+import cuentas.*
+describe "casa" {
+	test "al iniciar la casa no tiene comida" {
+		assert.equals(false, casa.tieneComida())
+	}
+	test "la casa tiene comida"{
+		casa.comprar(tapaDeAsado)
+		assert.equals(true, casa.tieneComida())
+	}
+	test "compras() que devuelve una colección con todas las cosas compradas"{
+		casa.comprar(plancha)
+		casa.comprar(cama)
+		assert.equals(2, casa.compras().size())
+	}
+}

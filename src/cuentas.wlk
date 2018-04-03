@@ -1,4 +1,3 @@
-
 object cuentaDePepe {
 	var saldo = 0
 	method saldo() = saldo
@@ -10,8 +9,7 @@ object cuentaDePepe {
 			self.error('No hay suficiente dinero')
 		}else{
 			saldo -= monto	
-		}
-		
+		}		
 	}
 }
 
@@ -31,26 +29,29 @@ object cuentaDeJulian {
 }
 object casa{
 	var gastos = {compras.sum({e => e.costo()})}
-	//var tieneComida = false
 	var property compras = []
-	
-	//method saldo() = saldo.apply()
-	
+	var property cuenta = cuentaDeJulian
+
 	method gastos() = gastos.apply()
 	
-	method ultimaCosa() = compras.last()
+	method ultimaCosa() = compras.last()	
 			
 	method comprar(cosa){
-		compras.add(cosa)
+		if(cuenta.saldo() >= cosa.costo()){
+			compras.add(cosa)
+			cuenta.extraer(cosa.costo())	
+		}else {
+			throwEx
+			self.error("No hay suficiente dinero")
+		}
+			 
 	}
-	//method gastar(importe){		saldo -= importe	}
-	
-	method tieneComida() = compras.any({e => e.esComida()})
-	
+	method tieneComida() = compras.any({e => e.esComida()})	
 	method vieneDeEquiparse(){
 		return if (compras == []) self.ultimaCosa().esElectrodomestico() && self.ultimaCosa().costo() > 5000 else false
 	}
-	//method puedeComprar(cosa) = saldo 
+	method esDerrochona() = cuenta.saldo() > 5000
+	method esBacan() = cuenta.saldo() >= 40000
 }
 
 object plancha{
@@ -78,7 +79,6 @@ object paqueteDeFideos{
 	method esComida() = true
 	method esElectrodomestico () = false	
 }
-
 
 object transferencia{
 	var desde = cuentaDeJulian

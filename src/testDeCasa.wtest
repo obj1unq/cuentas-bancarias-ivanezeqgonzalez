@@ -12,4 +12,9 @@ describe "casa" {
 		casa.comprar(cama)
 		assert.equals(2, casa.compras().size())
 	}
+	test "Si no alcanza el dinero para comprar, devuelve error"{
+		cuentaDePepe.depositar(50)
+		casa.cuenta(cuentaDePepe)
+		assert.throwsException({casa.comprar(tapaDeAsado)})
+	}
 }
